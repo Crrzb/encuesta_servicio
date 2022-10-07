@@ -2,7 +2,16 @@ let contenedor = document.getElementById("contenedor");
 let contenedor_boton_1 = document.getElementById("contenedor_boton_1");
 let contenedor_boton_2 = document.getElementById("contenedor_boton_2");
 
-let customer_name,customer_email,server_name,r1,r2,r3,r4;
+let customer_name_element = document.getElementById("customer_name");
+let customer_name_value = "";
+
+let customer_email_element = document.getElementById("customer_email");
+let customer_email_value = "";
+
+let server_name_element;
+let server_name_value = "";
+
+let rates = {};
 
 function change_function_btn_1(funcion,txt){
     if(txt){
@@ -21,7 +30,8 @@ function change_function_btn_2(funcion){
 }
 
 function start(){
-    contenedor.innerHTML = 
+    if(customer_name_value!="" && customer_email_value !=""){
+        contenedor.innerHTML = 
             `
             <div class="row">
                 <div class="col text-center mt-4">
@@ -38,24 +48,81 @@ function start(){
 
             <div class="row mt-2">
                 <div class="col text-center">
-                    <input type="text" id="name" class="form-control rounded border-dark" placeholder="Name">
+                    <input type="text" id="customer_name" class="form-control rounded border-dark" placeholder="Name" value="`+customer_name_value+`">
                     
                 </div>
             </div>
     
             <div class="row mt-2">
                 <div class="col text-center">
-                    <input type="email" id="email" class="form-control rounded border-dark" placeholder="email@something.com">
+                    <input type="email" id="customer_email" class="form-control rounded border-dark" placeholder="email@something.com" value="`+customer_email_value+`">
                     
                 </div>
             </div>`;
+    }else{
+        contenedor.innerHTML = 
+        `
+        <div class="row">
+            <div class="col text-center mt-4">
+                <i class="fa-solid fa-handshake fa-2x"></i>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+            <div class="col text-center">
+                <h3 class="h3 fw-light header mt-4">First, let us know you.</h3>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col text-center">
+                <input type="text" id="customer_name" class="form-control rounded border-dark" placeholder="Name">
+                
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col text-center">
+                <input type="email" id="customer_email" class="form-control rounded border-dark" placeholder="email@something.com">
+                
+            </div>
+        </div>`;
+    }
+    
 
             change_function_btn_1("quest_one");
             contenedor_boton_2.innerHTML ="";
 }
 
 function quest_one(){
-    contenedor.innerHTML = 
+    get_value_start();
+    if(server_name_value !=""){
+        contenedor.innerHTML = 
+        `
+        <div class="row">
+                <div class="col text-center mt-4">
+                <i class="fa-solid fa-person-circle-question fa-2x"></i>
+                </div>
+            </div>
+        
+        <div class="row">
+            <div class="col text-center">
+                <h3 class="h3 fw-light header mt-4">What is the name of your server</h3>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col text-center">
+                <input type="text" id="server_name" class="form-control rounded border-dark" placeholder="Server Name" value="`+server_name_value+`">
+                    
+            </div>
+        </div>
+
+
+`;
+    }else{
+        contenedor.innerHTML = 
         `
         <div class="row">
                 <div class="col text-center mt-4">
@@ -78,13 +145,18 @@ function quest_one(){
 
 
 `;
+    }
+    
 
 
     change_function_btn_1("quest_two");
     change_function_btn_2("start");
+
+    
 }
 
 function quest_two(){
+    get_value_quest_one();
     contenedor.innerHTML = 
     `            
     <div class="row">
@@ -104,19 +176,19 @@ function quest_two(){
     <div class="col text-center">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option1"> 1
+                <input type="radio" name="radio_group" id="option1"> 1
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option2" > 2
+                <input type="radio" name="radio_group" id="option2" > 2
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option3"> 3
+                <input type="radio" name="radio_group" id="option3"> 3
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option4"> 4
+                <input type="radio" name="radio_group" id="option4"> 4
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option5"> 5
+                <input type="radio" name="radio_group" id="option5"> 5
             </label>
         </div>
     </div>
@@ -128,6 +200,7 @@ function quest_two(){
 }
 
 function quest_three(){
+    get_value_rate();
     contenedor.innerHTML = 
     `            
     <div class="row">
@@ -148,19 +221,19 @@ function quest_three(){
     <div class="col text-center">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option1"> 1
+                <input type="radio" name="radio_group" id="option1" class="opciones"> 1
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option2" > 2
+                <input type="radio" name="radio_group" id="option2" class="opciones"> 2
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option3"> 3
+                <input type="radio" name="radio_group" id="option3" class="opciones"> 3
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option4"> 4
+                <input type="radio" name="radio_group" id="option4" class="opciones"> 4
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option5"> 5
+                <input type="radio" name="radio_group" id="option5" class="opciones"> 5
             </label>
         </div>
     </div>
@@ -191,19 +264,19 @@ function quest_four(){
     <div class="col text-center">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option1"> 1
+                <input type="radio" name="radio_group" id="option1" class="opciones"> 1
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option2" > 2
+                <input type="radio" name="radio_group" id="option2" class="opciones"> 2
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option3"> 3
+                <input type="radio" name="radio_group" id="option3" class="opciones"> 3
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option4"> 4
+                <input type="radio" name="radio_group" id="option4" class="opciones"> 4
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option5"> 5
+                <input type="radio" name="radio_group" id="option5" class="opciones"> 5
             </label>
         </div>
     </div>
@@ -233,19 +306,19 @@ function quest_five(){
     <div class="col text-center">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option1"> 1
+                <input type="radio" name="radio_group"name="radio_group" id="option1" class="opciones"> 1
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option2" > 2
+                <input type="radio" name="radio_group" id="option2" class="opciones" > 2
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option3"> 3
+                <input type="radio" name="radio_group" id="option3" class="opciones"> 3
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option4"> 4
+                <input type="radio" name="radio_group" id="option4" class="opciones"> 4
             </label>
             <label class="btn rounded-pill btn-outline-dark mx-2">
-                <input type="radio" id="option5"> 5
+                <input type="radio" name="radio_group" id="option5" class="opciones"> 5
             </label>
         </div>
     </div>
@@ -268,6 +341,27 @@ function finish(){
 
     contenedor_boton_1.innerHTML = "";
     contenedor_boton_2.innerHTML = "";
+}
+
+function get_value_start(){
+    
+    customer_name_value = customer_name_element.value;
+    customer_email_value = customer_email_element.value;
+    
+}
+
+function get_value_quest_one(){
+    server_name_element = document.getElementById("server_name");
+    server_name_value = server_name_element.value;
+}
+
+function get_value_rate(){
+    let radios = document.getElementsByClassName("opciones");
+    for(const radio of radios){
+        if(radio.active){
+            console.log(radio.id+" es activo");
+        }
+    }
 }
 
 
