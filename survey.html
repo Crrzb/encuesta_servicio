@@ -31,12 +31,12 @@
             <div class="col-4 text-start my-auto px-3">
                 <a href="index.html"><i class="fa-arrow-left fa-solid fa-2x text-dark"></i></a>
             </div>
-            <div class="col-4 text-center my-auto">
+            <div class="col-4 text-center my-auto py-3">
                 <i class="fa-solid fa-seedling fa-2x"></i>
             </div>
 
-            <div class="col-4 text-end my-auto py-3">
-                <button class="btn btn-outline-dark rounded">ESP <i class="fa-solid fa-earth-americas"></i></button>
+            <div class="col-4 text-end my-auto py-3 visually-hidden">
+                <!-- <button class="btn btn-outline-dark rounded">ESP <i class="fa-solid fa-earth-americas"></i></button> -->
             </div>
         </div>
     </nav>
@@ -77,6 +77,12 @@
                 <div class="col text-center">
                     <input type="email" id="customer_email" class="form-control rounded border-dark" placeholder="email@something.com">
                     
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col mt-2">
+                    <p class="text-danger visually-hidden" id="mensaje_error">*Campos faltantes o datos incorrectos.</p>
                 </div>
             </div>
 
